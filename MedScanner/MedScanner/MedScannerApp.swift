@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 
 @main
-struct MedScannerApp: App {    
+struct MedScannerApp: App {
     @StateObject var autenticacion = Autenticacion()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {

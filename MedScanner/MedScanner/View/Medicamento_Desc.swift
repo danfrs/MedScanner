@@ -17,8 +17,6 @@ struct Medicamento_Desc: View {
     @EnvironmentObject var autenticacion: Autenticacion
     @State var cargando:Bool = true
     @Environment(\.openURL) private var openURL
-    let auth = Auth.auth()
-    let db = Firestore.firestore()
     let currentdate = Date()
     
     var body: some View {
@@ -52,14 +50,6 @@ struct Medicamento_Desc: View {
               Label("Nº Regidstro", systemImage: "tray")
               Text(medicamento.nregistro).foregroundColor(.gray)
           }.padding(20)
-                /*
-            Text("Instrucciones").foregroundColor(.purple)
-            Divider().overlay(.purple).frame(width: 320)
-            VStack{
-                Label("Antes de tomar Naproxeno Sódico", systemImage: "questionmark.bubble")
-                Text("- Si es alérgico al naproxeno o naproxeno sódico o a alguno de los demás componentes de este medicamento.").foregroundColor(.gray)
-            }.padding(10)
-                */
             }
             Spacer()
         }.onAppear{
@@ -75,10 +65,8 @@ struct Medicamento_Desc: View {
                 if medicamento != nil{
                     do{
                         // Insertar datos en búsquedas recientes
-                  //  await Medicamento().insertBusquedaReciente(userid: autenticacion.usuario?.id ?? "" , nregistro: medicamento?.nregistro ??  "", date: currentdate, nombre: medicamento?.nombre ??  "" , laboratorio: medicamento?.labtitular ??  "")
-                       
-                        let insertData =  try await db.collection("medicamento-usuario").addDocument(data: [
-                                  "userid": auth.getUserID() ?? "",
+                        let insertData =  try await Firestore.firestore().collection("medicamento-usuario").addDocument(data: [
+                                  "userid": Auth.auth().getUserID() ?? "",
                                   "nregistro": nregistro,
                                   "date": currentdate,
                                   "nombre": medicamento?.nombre ?? "",

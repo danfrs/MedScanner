@@ -15,10 +15,6 @@ struct Home: View {
     @State var medicamento:Medicamento.ReturnedJson? = nil
     // @State var txtTitle = "Búsquedas recientes"
     @State var txtTitle = "Búsqueda de Medicamento"
-    //@AppStorage("uid") var userId: String = ""
-    let auth = Auth.auth()
-    let db = Firestore.firestore()
-    @State var opcionSeleccionada: OpcionSelecionada = .ninguna
     var body: some View {
         VStack{
             HStack{
@@ -33,17 +29,9 @@ struct Home: View {
                     }
                 }
                 Button(action: {
-                   /* do{
-                       try auth.signOut()
-                        //insertarBusqueda(db: db)
-                        //userId = ""
-                        print("usuario deslogueado")
-                    } catch let signOutError as NSError {
-                        print("Error signing out: \(signOutError.localizedDescription)")
-                    }
-                    */
+                    // Apertura camara para lectura de nombre del medicamento
                 }) {
-                    Image(systemName: "camera").padding(.horizontal,10)
+                    Image(systemName: "camera").padding(.horizontal,10).disabled(true)
                 }
             }
             
@@ -61,19 +49,6 @@ struct Home: View {
     }
 }
 
-/*
-func insertarBusqueda(db: Firestore, userid: String?, nregistro: String, nombre: String, laboratorio: String) {
-
-   let insert =  db.collection("users").addDocument(data: [
-        "userid": userid ?? "",
-            "nregistro": nregistro,
-        "nombre": nombre,
-        "laboratorio": laboratorio
-    ])
-    print(insert)
-
-}
-*/
 #Preview {
     Home()
 }

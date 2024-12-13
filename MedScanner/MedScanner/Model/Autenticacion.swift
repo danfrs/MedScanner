@@ -14,7 +14,7 @@ import FirebaseFirestore
 class Autenticacion: ObservableObject {
     
     @Published var sesion: FirebaseAuth.User?
-    @Published var usuario: Usuario.UsuarioStruct?
+    @Published var usuario: Usuario?
     
     init(){
         self.sesion = Auth.auth().currentUser
@@ -29,7 +29,7 @@ class Autenticacion: ObservableObject {
         do{
             let resultado = try await FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password)
             self.sesion = resultado.user
-            let usuario = Usuario.UsuarioStruct(id: resultado.user.uid, nombre: nombre, apellidos: apellidos, email: email)
+            let usuario = Usuario(id: resultado.user.uid, nombre: nombre, apellidos: apellidos, email: email)
             let usarioCodificadoJson = try Firestore.Encoder().encode(usuario)
             try await Firestore.firestore().collection("usuarios").document(usuario.id).setData(usarioCodificadoJson)
             await getDatosUsuario()
@@ -46,7 +46,6 @@ class Autenticacion: ObservableObject {
             let resultado = try await Auth.auth().signIn(withEmail: email, password: password)
             self.sesion = resultado.user
             await getDatosUsuario()
-            //errorMsg = "Login Correcto"
         } catch {
             errorMsg = error.localizedDescription
             print("Error login: \(error.localizedDescription)")
@@ -66,12 +65,10 @@ class Autenticacion: ObservableObject {
     }
     
     func getDatosUsuario() async {
-        
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let snapshot = try? await Firestore.firestore().collection("usuarios").document(uid).getDocument() else {return}
-        print("Auth.auth().currentUser?.uid : \(snapshot)")
-        self.usuario = try? snapshot.data(as: Usuario.UsuarioStruct.self)
-        //print("Get Usuario : \(snapshot)")
+        guard let documento = try? await Firestore.firestore().collection("usuarios").document(uid).getDocument() else {return}
+        print("Auth.auth().currentUser?.uid : \(documento)")
+        self.usuario = try? documento.data(as: Usuario.self)
     }
     
 }

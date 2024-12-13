@@ -6,16 +6,10 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseFirestore
 
-class Usuario : ObservableObject{
-
-    struct UsuarioStruct : Identifiable, Codable{
+struct Usuario : Identifiable, Codable{
         let id: String
         let nombre: String
         let apellidos: String
         let email: String
-    }
-
 }

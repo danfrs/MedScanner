@@ -59,5 +59,5 @@ enum OpcionSelecionada {
 
 
 #Preview {
-    MainView()
+    MainView().environmentObject(Autenticacion())
 }

@@ -33,9 +33,6 @@ struct Registro: View {
                     SecureField("Contraseña", text: $password).foregroundColor(.black)
                         .textFieldStyle(.plain).padding(10).autocorrectionDisabled().autocapitalization(.none)
                     Divider()
-                   /* TextField("Repetir Contraseña", text: $reppassword).foregroundColor(.black)
-                        .textFieldStyle(.plain).padding(10)
-                    */
                     Button {
                         //  Registrar
                         Task{

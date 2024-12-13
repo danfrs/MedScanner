@@ -11,7 +11,6 @@ struct MedicamentoRow: View {
     let medicamento: Medicamento.Medicamento_Info
     var body: some View {
         HStack {
-            
             Rectangle().frame(width: 10).foregroundColor(.yellow)
             VStack(alignment: .leading){
                 Text(medicamento.nombre).bold().padding(5)

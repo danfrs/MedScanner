@@ -35,8 +35,6 @@ struct Login: View {
                         Text("Continuar").bold().frame(width: 250, height: 50).background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors: [.black], startPoint: .top, endPoint: .bottomTrailing))).foregroundColor(.white)
                     }
                     .padding(.top).offset(y: 10)
-                    
-            
                 }
                 NavigationLink(
                     destination: Registro(),
@@ -46,7 +44,6 @@ struct Login: View {
                 )
                 .frame(maxWidth: .infinity)
                 .offset(y: 150)
-                
                 Text(errormsg).foregroundColor(.red).padding(.top).offset(y: 200)
             }.padding()
         }
